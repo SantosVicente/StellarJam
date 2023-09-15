@@ -9,7 +9,7 @@
 - Shadcn UI
 
 ### Gerenciamento de Estado:
-- Redux
+- Redux Toolkit
 
 ### Navegação:
 - React Router
@@ -38,6 +38,7 @@
 
 ### Framework e Bibliotecas Principais:
 - Fastify
+- <a href="https://github.com/fastify/fastify-multipart">Fastify Multipart</a> 
 - TypeScript
 - Prisma
 - MongoDB
