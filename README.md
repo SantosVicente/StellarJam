@@ -1,18 +1,17 @@
 # Stellar Jam
 
+### Monorepo baseado em Next.js usando server components e NEXT AUTH para construção de um Streaming de Músicas
+
 ## Tecnologias e Bibliotecas de Frontend
 
 ### Framework e Bibliotecas Principais:
 - React
-- Vite.js
+- Next.js
 - TypeScript
 - Shadcn UI
 
 ### Gerenciamento de Estado:
 - Redux Toolkit
-
-### Navegação:
-- React Router
 
 ### Requisições HTTP:
 - Axios
@@ -24,7 +23,7 @@
 ### Hospedagem e Implantação:
 - Vercel
 
-### Bibliotecas de Áudio:
+### Bibliotecas de Áudio: (possíveis)
 - Howler.js
 - Tone.js
 - Sound.js
@@ -47,7 +46,7 @@
 ### Validação
 - Zod
 - Validator.js
-- JSON Web Tokens (JWT)
+- NEXTAUTH.js
 
 ### Documentação
 - Swagger
