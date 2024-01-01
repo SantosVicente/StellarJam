@@ -19,8 +19,16 @@ export default function Home() {
 
   const { status, data } = useSession();
 
-  const handleLoginClick = async () => {
-    await signIn();
+  const handleLoginGoogleClick = async () => {
+    await signIn("google", {
+      callbackUrl: "/dashboard",
+    });
+  };
+
+  const handleLoginGithubClick = async () => {
+    await signIn("github", {
+      callbackUrl: "/dashboard",
+    });
   };
 
   if (status === "authenticated") {
@@ -132,7 +140,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-4 lg:flex-row">
               <Button
-                onClick={handleLoginClick}
+                onClick={handleLoginGoogleClick}
                 className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]"
               >
                 <Image
@@ -146,7 +154,10 @@ export default function Home() {
                 Google Account
               </Button>
 
-              <Button className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]">
+              <Button
+                onClick={handleLoginGithubClick}
+                className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]"
+              >
                 <Github size={20} />
                 GitHub Account
               </Button>
