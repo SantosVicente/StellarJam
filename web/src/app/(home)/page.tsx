@@ -3,32 +3,47 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
-import Logo from "../Logo.svg";
-import Google from "../Google.svg";
+import Logo from "../assets/Logo.svg";
+import Google from "../assets/Google.svg";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { LockKeyhole, Mail, Github } from "lucide-react";
+import Background from "../assets/abstract-01.png";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Home() {
   const { toast } = useToast();
 
+  const { status, data } = useSession();
+
+  const handleLoginCLick = async () => {
+    await signIn();
+  };
+
+  const handleLogoutCLick = async () => {
+    await signOut();
+  };
+
   return (
     <div className="w-full block md:flex">
       <div className="flex flex-col md:w-1/2 min-h-screen p-4 sm:p-8 2xl:px-20">
-        <div className="flex gap-2 items-center">
-          <Image
-            src={Logo}
-            alt="logo"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="object-cover w-10 h-10"
-          />
-          <div className="hidden md:block">
-            <h1 className="text-3xl font-bold gradient-logo">SpaceJam</h1>
+        <header className="flex items-center justify-between">
+          <div className="flex gap-2 items-center">
+            <Image
+              src={Logo}
+              alt="logo"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="object-cover w-10 h-10"
+            />
+            <div className="hidden md:block">
+              <h1 className="text-3xl font-bold gradient-logo">StellarJam</h1>
+            </div>
           </div>
-        </div>
+        </header>
 
         <div className="flex-1 flex items-center w-full transform scale-90 sm:scale-100 2xl:px-36 xl:px-24 lg:px-14 md:px-10">
           <div className="flex flex-col gap-8 w-full">
@@ -38,7 +53,7 @@ export default function Home() {
                 <span className="gradient-text font-bold">play!</span>
               </h1>
               <h2 className="text-sm text-zinc-400 font-medium">
-                Faça login agora no SpaceJam e aproveite o melhor da música.
+                Faça login agora no StellarJam e aproveite o melhor da música.
               </h2>
             </div>
 
@@ -115,7 +130,10 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col gap-4 lg:flex-row">
-              <Button className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]">
+              <Button
+                onClick={handleLoginCLick}
+                className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]"
+              >
                 <Image
                   src={Google}
                   alt="logo"
@@ -152,14 +170,23 @@ export default function Home() {
       </div>
       <div className="md:w-1/2 w-0 hidden md:block">
         <Image
-          src="/abstract-01.png"
+          src={Background}
           alt="logo"
           width={0}
           height={0}
           sizes="100vw"
-          className="object-cover w-full h-screen"
+          className="object-cover w-full h-screen rounded-l-[3rem]"
         />
       </div>
     </div>
   );
 }
+
+/* export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  return {
+    props: {
+      user: "Teste",
+    },
+  };
+};
+ */
