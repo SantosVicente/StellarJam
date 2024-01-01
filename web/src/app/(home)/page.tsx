@@ -8,14 +8,14 @@ import Google from "../Google.svg";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
-import { LockKeyhole, Mail } from "lucide-react";
+import { LockKeyhole, Mail, Github } from "lucide-react";
 
 export default function Home() {
   const { toast } = useToast();
 
   return (
     <div className="w-full block md:flex">
-      <div className="flex flex-col md:w-1/2 min-h-screen p-8 2xl:px-20">
+      <div className="flex flex-col md:w-1/2 min-h-screen p-4 sm:p-8 2xl:px-20">
         <div className="flex gap-2 items-center">
           <Image
             src={Logo}
@@ -30,7 +30,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex-1 flex items-center w-full 2xl:px-36 xl:px-24 lg:px-14 md:px-10">
+        <div className="flex-1 flex items-center w-full transform scale-90 sm:scale-100 2xl:px-36 xl:px-24 lg:px-14 md:px-10">
           <div className="flex flex-col gap-8 w-full">
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl">
@@ -114,17 +114,24 @@ export default function Home() {
               <Separator className="w-[30%]" />
             </div>
 
-            <Button className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]">
-              <Image
-                src={Google}
-                alt="logo"
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="object-cover w-5 h-5"
-              />
-              Google Account
-            </Button>
+            <div className="flex flex-col gap-4 lg:flex-row">
+              <Button className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]">
+                <Image
+                  src={Google}
+                  alt="logo"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="object-cover w-5 h-5"
+                />
+                Google Account
+              </Button>
+
+              <Button className="w-full flex gap-2 text-zinc-500 font-bold bg-[#F0F0F0] bg-opacity-5 transition-all hover:bg-opacity-10 hover:text-zinc-400 hover:bg-[#F0F0F0]">
+                <Github size={20} />
+                GitHub Account
+              </Button>
+            </div>
           </div>
         </div>
 
