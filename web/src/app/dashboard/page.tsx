@@ -5,13 +5,18 @@ import Logo from "../assets/Logo.svg";
 import Background from "../assets/abstract-01.png";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { redirect } from "next/navigation";
 
 export default function Dashboard() {
   const { status, data } = useSession();
 
-  const handleLoginCLick = async () => {
-    await signIn();
+  const handleLogoutClick = async () => {
+    await signOut();
   };
+
+  if (status === "unauthenticated") {
+    redirect("/");
+  }
 
   return (
     <div className="w-full block md:flex">
@@ -44,7 +49,12 @@ export default function Dashboard() {
 
                 <div className="flex flex-col">
                   <p className="font-medium">{data.user.name}</p>
-                  <p className="text-sm opacity-75">Bem Vindo!</p>
+                  <p
+                    className="text-sm opacity-75 cursor-pointer text-zinc-400 hover:text-zinc-100 transition-all"
+                    onClick={handleLogoutClick}
+                  >
+                    Clique para sair
+                  </p>
                 </div>
               </div>
             </div>
