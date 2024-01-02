@@ -3,6 +3,7 @@ import { AuthOptions } from "next-auth";
 import { prismaClient } from "./prisma";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { Adapter } from "next-auth/adapters";
 
 export const authOptions: AuthOptions = {
@@ -16,12 +17,32 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const user = await prismaClient.user.findFirst({
+          where: { email: credentials?.email },
+        });
+
+        if (user && user.password === credentials?.password) {
+          return user;
+        } else {
+          return null;
+        }
+      },
+    }),
   ],
   secret: process.env.SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
       return Promise.resolve(
-        url.startsWith(baseUrl + "/dashboard") ? url : "/dashboard"
+        url.startsWith(baseUrl + "/dashboard")
+          ? url
+          : `${process.env.NEXTAUTH_URL}/dashboard`
       );
     },
   },

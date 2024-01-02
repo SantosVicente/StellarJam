@@ -10,14 +10,20 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { LockKeyhole, Mail, Github } from "lucide-react";
 import Background from "../assets/abstract-01.png";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { redirect } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 
 export default function Home() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const { status, data } = useSession();
+
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleLoginGoogleClick = async () => {
     await signIn("google", {
@@ -31,9 +37,32 @@ export default function Home() {
     });
   };
 
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (res?.error) {
+      toast({
+        title: "Erro",
+        description: `${res.error} - Status ${res.status}`,
+      });
+      return;
+    }
+
+    router.replace("/dashboard");
+  };
+
   if (status === "authenticated") {
     redirect("/dashboard");
   }
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="w-full block md:flex">
@@ -66,7 +95,7 @@ export default function Home() {
               </h2>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
               <div className="relative w-full">
                 <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 pointer-events-none">
                   <Mail size={14} />
@@ -74,6 +103,11 @@ export default function Home() {
                 <Input
                   type="email"
                   placeholder="Email"
+                  name="email"
+                  value={values.email}
+                  onChange={(e) =>
+                    setValues({ ...values, email: e.target.value })
+                  }
                   className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
                 />
               </div>
@@ -84,6 +118,11 @@ export default function Home() {
                 <Input
                   type="password"
                   placeholder="Password"
+                  name="password"
+                  value={values.password}
+                  onChange={(e) =>
+                    setValues({ ...values, password: e.target.value })
+                  }
                   className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
                 />
               </div>
@@ -118,17 +157,18 @@ export default function Home() {
               <div className="flex w-full justify-between mt-4">
                 <Button
                   className="w-full text-zinc-900 font-bold bg-[#B6F09C] hover:bg-[#9bf073] transition-all"
-                  onClick={() => {
-                    toast({
-                      title: "Ação Inválida",
-                      description: "Esta ação não está disponível no momento.",
-                    });
-                  }}
+                  type="submit"
+                  disabled={
+                    !values.email ||
+                    !values.password ||
+                    values.email === "" ||
+                    values.password === ""
+                  }
                 >
                   Log in
                 </Button>
               </div>
-            </div>
+            </form>
 
             <div className="flex gap-2 justify-center items-center">
               <Separator className="w-[30%]" />

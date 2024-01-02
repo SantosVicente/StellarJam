@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Logo from "../assets/Logo.svg";
 import Background from "../assets/abstract-01.png";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { redirect } from "next/navigation";
 
