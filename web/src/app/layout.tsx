@@ -3,6 +3,9 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "./AuthProvider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
