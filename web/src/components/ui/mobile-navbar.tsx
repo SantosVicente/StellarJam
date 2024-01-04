@@ -4,17 +4,17 @@ import React, { useState } from "react";
 interface MobileNavbarProps {
   language: "pt-br" | "en" | "es";
   setPage: (
-    page: "home" | "library" | "profile" | "billing" | "settings" | "search"
+    page: "main" | "library" | "profile" | "billing" | "settings" | "search"
   ) => void;
 }
 
 const MobileNavbar = ({ language, setPage }: MobileNavbarProps) => {
   const [activeList, setActiveList] = useState<
-    "home" | "library" | "profile" | "billing" | "settings" | "search"
-  >("home");
+    "main" | "library" | "profile" | "billing" | "settings" | "search"
+  >("main");
 
   const handleItemClick = (
-    page: "home" | "library" | "profile" | "billing" | "settings" | "search"
+    page: "main" | "library" | "profile" | "billing" | "settings" | "search"
   ) => {
     setActiveList(page);
     setPage(page);
@@ -23,8 +23,8 @@ const MobileNavbar = ({ language, setPage }: MobileNavbarProps) => {
   return (
     <div className="navigation bg-zinc-950 md:hidden">
       <ul>
-        <li className={`list ${activeList === "home" ? "active" : ""}`}>
-          <a href="#" onClick={() => handleItemClick("home")}>
+        <li className={`list ${activeList === "main" ? "active" : ""}`}>
+          <a href="#" onClick={() => handleItemClick("main")}>
             <span className="icon">
               <Home size={24} />
             </span>

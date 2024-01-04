@@ -1,8 +1,8 @@
 "use client";
 
-import Home from "@/app/(user-routes)/dashboard/home/page";
 import Header from "./header";
 import LateralMenu from "./lateral-menu";
+import Main from "@/app/(user-routes)/dashboard/main/page";
 
 interface FrameProps {
   language: "pt-br" | "en" | "es";
@@ -10,7 +10,7 @@ interface FrameProps {
   openPreferences: boolean;
   setOpenPreferences: (open: boolean) => void;
   handleLogoutClick: () => void;
-  page: "home" | "library" | "profile" | "billing" | "settings" | "search";
+  page: "main" | "library" | "profile" | "billing" | "settings" | "search";
 }
 
 const Frame = ({
@@ -35,7 +35,7 @@ const Frame = ({
 
         {
           {
-            home: <Home language={language} />,
+            main: <Main language={language} />,
             library: <p>Library</p>,
             profile: <p>Profile</p>,
             billing: <p>Billing</p>,

@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import Home from "@/app/(user-routes)/dashboard/home/page";
+import Home from "@/app/(user-routes)/dashboard/main/page";
 
 interface HeaderProps {
   language: "pt-br" | "en" | "es";

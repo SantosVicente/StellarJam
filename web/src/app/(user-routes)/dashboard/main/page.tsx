@@ -1,8 +1,8 @@
-interface HomeProps {
+interface MainProps {
   language: "pt-br" | "en" | "es";
 }
 
-const Home = ({ language }: HomeProps) => {
+const Main = ({ language }: MainProps) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <p className="text-2xl font-bold">
@@ -50,4 +50,4 @@ const Home = ({ language }: HomeProps) => {
   );
 };
 
-export default Home;
+export default Main;

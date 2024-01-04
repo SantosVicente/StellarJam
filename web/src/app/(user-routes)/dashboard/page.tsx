@@ -6,7 +6,7 @@ import { useState } from "react";
 import MobileNavbar from "@/components/ui/mobile-navbar";
 import Footer from "@/components/ui/footer";
 import Frame from "@/components/ui/frame";
-import Home from "./home/page";
+import Home from "./main/page";
 
 export default function Dashboard() {
   const handleLogoutClick = async () => {
@@ -16,8 +16,8 @@ export default function Dashboard() {
   const [language, setLanguage] = useState<"pt-br" | "en" | "es">("pt-br");
   const [openPreferences, setOpenPreferences] = useState(false);
   const [page, setPage] = useState<
-    "home" | "library" | "profile" | "billing" | "settings" | "search"
-  >("home");
+    "main" | "library" | "profile" | "billing" | "settings" | "search"
+  >("main");
 
   useHotkeys("shift+p", () => {
     alert("Perfil");
