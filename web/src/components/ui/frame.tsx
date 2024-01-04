@@ -2,7 +2,7 @@
 
 import Header from "./header";
 import LateralMenu from "./lateral-menu";
-import Main from "@/app/(user-routes)/dashboard/main/page";
+import Main from "./main";
 
 interface FrameProps {
   language: "pt-br" | "en" | "es";

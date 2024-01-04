@@ -6,7 +6,6 @@ import { useState } from "react";
 import MobileNavbar from "@/components/ui/mobile-navbar";
 import Footer from "@/components/ui/footer";
 import Frame from "@/components/ui/frame";
-import Home from "./main/page";
 
 export default function Dashboard() {
   const handleLogoutClick = async () => {
