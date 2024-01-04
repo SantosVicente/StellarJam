@@ -1,0 +1,44 @@
+Coisas para arrumar/implementar:
+
+Prioridade alta:
+  - Criar a playlist de favoritos por default 
+    - Seram salvados os ids das musicas favoritadas para pedir ao spotify para retornar as mesmas
+    - Criar a playlist por default em User
+  
+  - Criar o campo em User de playlists favoritadas pra salvar o id das playlists
+  
+  - Adicionar campo de Idioma Default no USER e usar pra definir o Idioma
+
+  - Implementar o dashboard
+    - Será fixo com recomendações de músicas e playlists por gênero, igual no spotify
+
+  - Implementar página de busca (Search)
+  
+  - Implementar página de Biblioteca
+  
+  - Implementar página de visualização de Playlist
+  
+  - Implementar página de visualização de Música
+
+  - Pensar se vale a pena deixar o user criar playlists, e caso sim, planejar isso
+  
+  - Implementar sistema de tocar os audios (a controladora)
+    - Passar pra próxima
+    - Pausar/Play
+    - Repetir música ?
+    - Ordem Aleatória ?
+    - Implementar a mesma coisa no mobile, dica, use o Drawer do Shadcn
+  
+
+  Baixa prioridade:
+  - Adicionar tema Light
+  
+  - Implementar página fake de cobrança
+  
+  - Implementar o Perfil do Usuário
+  
+  - Pensar o que terá nas configurações
+  
+  - Pensar o que colocar em Ajuda
+  
+  - Remover botões desnecessários na controladora (bluetooth, letra, ordem aleatoria, repetir musica, etc)
