@@ -43,7 +43,7 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="w-full flex-col flex h-screen overflow-y-hidden bg-[#131619]">
+    <div className="w-full flex-col flex h-full bg-[#131619]">
       <Frame
         handleLogoutClick={handleLogoutClick}
         language={language}
@@ -51,10 +51,8 @@ export default function Dashboard() {
         openPreferences={openPreferences}
         setOpenPreferences={setOpenPreferences}
         page={page}
+        setPage={setPage}
       />
-
-      <Footer />
-      <MobileNavbar language={language} setPage={setPage} />
     </div>
   );
 }

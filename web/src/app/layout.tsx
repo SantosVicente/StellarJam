@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={plusJakartaSans.className}>
         <AuthProvider>
-          <main>{children}</main>
+          <main className="h-screen">{children}</main>
           <Toaster />
         </AuthProvider>
       </body>

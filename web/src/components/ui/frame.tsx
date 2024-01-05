@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
+import Footer from "./footer";
 import Header from "./header";
 import LateralMenu from "./lateral-menu";
-import Main from "./main";
+import Main, { Track } from "./main";
+import MobileNavbar from "./mobile-navbar";
 
 interface FrameProps {
   language: "pt-br" | "en" | "es";
@@ -11,6 +14,9 @@ interface FrameProps {
   setOpenPreferences: (open: boolean) => void;
   handleLogoutClick: () => void;
   page: "main" | "library" | "profile" | "billing" | "settings" | "search";
+  setPage: (
+    page: "main" | "library" | "profile" | "billing" | "settings" | "search"
+  ) => void;
 }
 
 const Frame = ({
@@ -20,31 +26,42 @@ const Frame = ({
   setOpenPreferences,
   handleLogoutClick,
   page,
+  setPage,
 }: FrameProps) => {
-  return (
-    <div className="flex w-full h-full">
-      <LateralMenu language={language} />
-      <div className="w-full relative">
-        <Header
-          language={language}
-          setLanguage={setLanguage}
-          openPreferences={openPreferences}
-          setOpenPreferences={setOpenPreferences}
-          handleLogoutClick={handleLogoutClick}
-        />
+  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
 
-        {
+  return (
+    <>
+      <div className="flex w-full h-[80%] lg:h-[90%]">
+        <LateralMenu language={language} />
+        <div className="w-full h-full">
+          <Header
+            language={language}
+            setLanguage={setLanguage}
+            openPreferences={openPreferences}
+            setOpenPreferences={setOpenPreferences}
+            handleLogoutClick={handleLogoutClick}
+          />
+
           {
-            main: <Main language={language} />,
-            library: <p>Library</p>,
-            profile: <p>Profile</p>,
-            billing: <p>Billing</p>,
-            settings: <p>Settings</p>,
-            search: <p>Search</p>,
-          }[page]
-        }
+            {
+              main: (
+                <Main language={language} setCurrentTrack={setCurrentTrack} />
+              ),
+              library: <p>Library</p>,
+              profile: <p>Profile</p>,
+              billing: <p>Billing</p>,
+              settings: <p>Settings</p>,
+              search: <p>Search</p>,
+            }[page]
+          }
+        </div>
       </div>
-    </div>
+      <div className="fixed bottom-0 w-full">
+        <Footer setCurrentTrack={setCurrentTrack} currentTrack={currentTrack} />
+        <MobileNavbar language={language} setPage={setPage} />
+      </div>
+    </>
   );
 };
 

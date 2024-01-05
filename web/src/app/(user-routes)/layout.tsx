@@ -14,5 +14,5 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
     redirect("/");
   }
 
-  return <>{children}</>;
+  return <div className="h-screen">{children}</div>;
 }
