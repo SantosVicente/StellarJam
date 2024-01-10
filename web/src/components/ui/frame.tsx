@@ -4,7 +4,7 @@ import { useState } from "react";
 import Footer from "./footer";
 import Header from "./header";
 import LateralMenu from "./lateral-menu";
-import Main, { Track } from "./main";
+import Search, { Track } from "./search";
 import MobileNavbar from "./mobile-navbar";
 
 interface FrameProps {
@@ -33,7 +33,7 @@ const Frame = ({
   return (
     <>
       <div className="flex w-full h-[80%] lg:h-[90%]">
-        <LateralMenu language={language} />
+        <LateralMenu language={language} setPage={setPage} />
         <div className="w-full h-full">
           <Header
             language={language}
@@ -45,14 +45,14 @@ const Frame = ({
 
           {
             {
-              main: (
-                <Main language={language} setCurrentTrack={setCurrentTrack} />
-              ),
+              main: <p>Main</p>,
               library: <p>Library</p>,
               profile: <p>Profile</p>,
               billing: <p>Billing</p>,
               settings: <p>Settings</p>,
-              search: <p>Search</p>,
+              search: (
+                <Search language={language} setCurrentTrack={setCurrentTrack} />
+              ),
             }[page]
           }
         </div>

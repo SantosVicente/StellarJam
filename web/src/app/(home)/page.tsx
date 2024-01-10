@@ -233,12 +233,3 @@ export default function Home() {
     </div>
   );
 }
-
-/* export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return {
-    props: {
-      user: "Teste",
-    },
-  };
-};
- */

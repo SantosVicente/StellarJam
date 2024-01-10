@@ -6,9 +6,12 @@ import { Home, PlusCircle, Search, Star } from "lucide-react";
 
 interface LateralMenuProps {
   language: "pt-br" | "en" | "es";
+  setPage: (
+    page: "main" | "library" | "profile" | "billing" | "settings" | "search"
+  ) => void;
 }
 
-const LateralMenu = ({ language }: LateralMenuProps) => {
+const LateralMenu = ({ language, setPage }: LateralMenuProps) => {
   return (
     <div className="lg:flex hidden bg-zinc-950 flex-col m-2 mb-0 w-96 rounded-lg">
       <div className="flex gap-2 items-center justify-center my-4">
@@ -38,7 +41,12 @@ const LateralMenu = ({ language }: LateralMenuProps) => {
           }
         </p>
 
-        <Button className="flex justify-between mx-3 bg-transparent hover:bg-[#212526] hover:bg-opacity-65 transition-colors">
+        <Button
+          onClick={() => {
+            setPage("main");
+          }}
+          className="flex justify-between mx-3 bg-transparent hover:bg-[#212526] hover:bg-opacity-65 transition-colors"
+        >
           <div className="flex gap-2">
             <Home size={20} />
             <p className="ml-2">
@@ -53,7 +61,12 @@ const LateralMenu = ({ language }: LateralMenuProps) => {
           </div>
         </Button>
 
-        <Button className="flex justify-between mx-3 bg-transparent hover:bg-[#212526] hover:bg-opacity-65 transition-colors">
+        <Button
+          onClick={() => {
+            setPage("search");          
+          }}
+          className="flex justify-between mx-3 bg-transparent hover:bg-[#212526] hover:bg-opacity-65 transition-colors"
+        >
           <div className="flex gap-2">
             <Search size={20} />
             <p className="ml-2">

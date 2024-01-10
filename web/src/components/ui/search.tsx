@@ -3,7 +3,7 @@ import { Input } from "./input";
 import { Button } from "./button";
 import Image from "next/image";
 import { ScrollArea } from "./scroll-area";
-import { Search } from "lucide-react";
+import { Search as SearchIcon } from "lucide-react";
 import {
   Pagination,
   PaginationContent,
@@ -70,12 +70,12 @@ interface Response {
   total: number;
 }
 
-const Main = ({ language, setCurrentTrack }: MainProps) => {
+const Search = ({ language, setCurrentTrack }: MainProps) => {
   const [search, setSearch] = useState<string>("");
   const [confirm, setConfirm] = useState<boolean>(false);
   const [tracks, setTracks] = useState<Track[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalTracks, setTotalTracks] = useState<number>(0);
+  const [searchPage, setSearchPage] = useState<number>(1);
 
   const fetchTracks = async (search: string, pageIndex: number) => {
     const itemsPerPage = 25;
@@ -102,16 +102,23 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
 
   useEffect(() => {
     if (search.length > 0 && confirm) {
-      fetchTracks(search, currentPage);
+      fetchTracks(search, searchPage);
       setConfirm(false);
     }
-  }, [search, confirm, currentPage]);
+  }, [search, confirm, searchPage]);
 
   return (
-    <div className="flex flex-col gap-4 w-full h-[90%] px-2 ">
+    <div className="flex flex-col gap-4 w-full h-[90%] px-2">
       <div className="flex flex-col gap-4 h-full">
-        <div className="w-full flex items-end gap-4">
-          <div className="flex flex-col gap-1">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setSearchPage(1);
+            setConfirm(true)
+          }}
+          className="w-full flex items-end gap-4"
+        >
+          <div className="flex flex-col gap-1 w-full lg:w-1/2 2xl:w-1/3">
             <label htmlFor="search" className="text-sm font-bold">
               {
                 {
@@ -130,14 +137,14 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
               className="bg-zinc-950"
             />
           </div>
-          <Button onClick={() => setConfirm(true)} className="w-10 p-0 m-0">
-            <Search size={20} />
+          <Button type="submit" className="w-10 p-0 m-0">
+            <SearchIcon size={20} />
           </Button>
-        </div>
-
-        {tracks.length > 0 && (
+        </form>
+        
+        {tracks.length > 0 ? (
           <ScrollArea className="rounded-md scroll-smooth">
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap px-[7%] sm:px-0 sm:justify-center gap-4">
               {tracks.map((track, index) => (
                 <div
                   className="flex flex-col w-36 sm:w-40 lg:w-44 gap-2 cursor-pointer bg-zinc-200 bg-opacity-10 hover:bg-opacity-20 rounded-md transition-all"
@@ -173,13 +180,13 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
                   <PaginationPrevious
                     href="#"
                     className={`${
-                      currentPage === 1 && "opacity-50 cursor-not-allowed"
+                      searchPage === 1 && "opacity-50 cursor-not-allowed"
                     }`}
                     onClick={() => {
-                      if (currentPage !== 1) {
-                        fetchTracks(search, Math.max(currentPage - 1, 1));
+                      if (searchPage !== 1) {
+                        fetchTracks(search, Math.max(searchPage - 1, 1));
                       }
-                      setCurrentPage((prev) => Math.max(prev - 1, 1));
+                      setSearchPage((prev) => Math.max(prev - 1, 1));
                     }}
                   />
                 </PaginationItem>
@@ -203,9 +210,9 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
                           href="#"
                           onClick={() => {
                             fetchTracks(search, index + 1);
-                            setCurrentPage(index + 1);
+                            setSearchPage(index + 1);
                           }}
-                          isActive={currentPage === index + 1}
+                          isActive={searchPage === index + 1}
                         >
                           {index + 1}
                         </PaginationLink>
@@ -227,19 +234,19 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
                   <PaginationNext
                     href="#"
                     className={`${
-                      currentPage === Math.ceil(totalTracks / 25) &&
+                      searchPage === Math.ceil(totalTracks / 25) &&
                       "opacity-50 cursor-not-allowed"
                     }`}
                     onClick={() => {
-                      if (currentPage !== Math.ceil(totalTracks / 25)) {
+                      if (searchPage !== Math.ceil(totalTracks / 25)) {
                         fetchTracks(
                           search,
-                          currentPage < Math.ceil(totalTracks / 25)
-                            ? currentPage + 1
-                            : currentPage
+                          searchPage < Math.ceil(totalTracks / 25)
+                            ? searchPage + 1
+                            : searchPage
                         );
                       }
-                      setCurrentPage((prev) =>
+                      setSearchPage((prev) =>
                         prev < Math.ceil(totalTracks / 25) ? prev + 1 : prev
                       );
                     }}
@@ -248,10 +255,24 @@ const Main = ({ language, setCurrentTrack }: MainProps) => {
               </PaginationContent>
             </Pagination>
           </ScrollArea>
+        ) : (
+          <div className="flex flex-col items-center text-zinc-400 justify-center gap-4 h-full">
+            <p className="text-xl font-bold">
+              {
+                {
+                  "pt-br": "Pesquise por uma música",
+                  en: "Search for a song",
+                  es: "Buscar una canción",
+                }[language]
+              }
+            </p>
+            <SearchIcon size={50} />
+          </div>
+        
         )}
       </div>
     </div>
   );
 };
 
-export default Main;
+export default Search;

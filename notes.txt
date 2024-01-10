@@ -1,8 +1,8 @@
 Coisas para arrumar/implementar:
 
 Prioridade alta:
-  - Criar a playlist de favoritos por default 
-    - Seram salvados os ids das musicas favoritadas para pedir ao spotify para retornar as mesmas
+  - Criar a playlist de favoritos por default
+    - Seram salvados os ids das musicas favoritadas para pedir ao deezer para retornar as mesmas
     - Criar a playlist por default em User
   
   - Criar o campo em User de playlists favoritadas pra salvar o id das playlists
@@ -10,9 +10,7 @@ Prioridade alta:
   - Adicionar campo de Idioma Default no USER e usar pra definir o Idioma
 
   - Implementar o dashboard
-    - Será fixo com recomendações de músicas e playlists por gênero, igual no spotify
-
-  - Implementar página de busca (Search)
+    - Será fixo com recomendações de músicas e playlists por gênero, igual no deezer
   
   - Implementar página de Biblioteca
   

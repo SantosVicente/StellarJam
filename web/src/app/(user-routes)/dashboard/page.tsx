@@ -3,8 +3,6 @@
 import { signOut } from "next-auth/react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useState } from "react";
-import MobileNavbar from "@/components/ui/mobile-navbar";
-import Footer from "@/components/ui/footer";
 import Frame from "@/components/ui/frame";
 
 export default function Dashboard() {
@@ -39,7 +37,7 @@ export default function Dashboard() {
   });
 
   useHotkeys("s", () => {
-    alert("Buscar");
+    setPage("search");
   });
 
   return (
