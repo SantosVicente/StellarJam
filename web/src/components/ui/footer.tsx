@@ -145,63 +145,103 @@ const Footer = ({ currentTrack, setCurrentTrack }: FooterProps) => {
             </div>
           </div>
         </div>
-
+          
         <div className="hidden flex-col items-center gap-2 md:flex absolute left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-6">
-            <button onClick={() => {
-              setTimeToZero();
-            }}>
-              <SkipBack size={20} className="text-zinc-400 hover:text-white" />
-            </button>
-            {!isPlaying ?
-              <button className="" onClick={() => {
-                  if (currentTrack) {
-                    play();
-                  }
+          {currentTrack ? (
+            <>
+              <div className="flex items-center gap-6">
+                <button onClick={() => {
+                  setTimeToZero();
                 }}>
-                <PlayCircle
-                  size={35}
-                  className="text-zinc-400 hover:text-white"
+                  <SkipBack size={20} className="text-zinc-400 hover:text-white" />
+                </button>
+                {!isPlaying ?
+                  <button className="" onClick={() => {
+                      if (currentTrack) {
+                        play();
+                      }
+                    }}>
+                    <PlayCircle
+                      size={35}
+                      className="text-zinc-400 hover:text-white"
+                      />
+                  </button>
+                  : 
+                  <button className="" onClick={() => {
+                    if (currentTrack) {
+                      pause();
+                    }
+                  }}>
+                  <PauseCircle
+                    size={35}
+                    className="text-zinc-400 hover:text-white"
                   />
-              </button>
-              : 
-              <button className="" onClick={() => {
-                if (currentTrack) {
-                  pause();
+                </button>
                 }
-              }}>
-              <PauseCircle
-                size={35}
-                className="text-zinc-400 hover:text-white"
-              />
-            </button>
-            }
-            <button>
-              <SkipForward
-                size={20}
-                className="text-zinc-400 hover:text-white"
-              />
-            </button>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-zinc-400">
-              {currentTime ? formatDuration(currentTime) : "0:00"}
-            </span>
-            <Slider
-              max={audioRef.current?.duration || 0}
-              min={0}
-              value={[currentTrack ? currentTime : 0]}
-              onValueChange={(value) => {
-                if (audioRef.current) {
-                  audioRef.current.currentTime = value[0];
-                }
-              }}
-              className="rounded-full w-[30rem] bg-zinc-600 cursor-pointer"
-            />
-            <span className="text-xs text-zinc-400">
-              {currentTrack ? formatDurationToMinutes(currentTrack.duration) : "0:00"}
-            </span>
-          </div>
+                <button>
+                  <SkipForward
+                    size={20}
+                    className="text-zinc-400 hover:text-white"
+                  />
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-400">
+                  {currentTime ? formatDuration(currentTime) : "0:00"}
+                </span>
+                <Slider
+                  max={audioRef.current?.duration || 0}
+                  min={0}
+                  value={[currentTrack ? currentTime : 0]}
+                  onValueChange={(value) => {
+                    if (audioRef.current) {
+                      audioRef.current.currentTime = value[0];
+                    }
+                  }}
+                  className="rounded-full w-[30rem] bg-zinc-600 cursor-pointer"
+                />
+                <span className="text-xs text-zinc-400">
+                  {currentTrack ? formatDurationToMinutes(currentTrack.duration) : "0:00"}
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center gap-6">
+                <button>
+                  <SkipBack size={20} className="text-zinc-400 hover:text-white" />
+                </button>
+               
+                  <button className="">
+                    <PlayCircle
+                      size={35}
+                      className="text-zinc-400 hover:text-white"
+                      />
+                  </button>
+                  
+                <button>
+                  <SkipForward
+                    size={20}
+                    className="text-zinc-400 hover:text-white"
+                  />
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-400">
+                  0:00
+                </span>
+                <Slider
+                  max={1}
+                  min={0}
+                  value={[0]}
+                  className="rounded-full w-[30rem] bg-zinc-600 cursor-pointer"
+                />
+                <span className="text-xs text-zinc-400">
+                  0:00
+                </span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
