@@ -1,6 +1,7 @@
 # Stellar Jam
 
-### Monorepo baseado em Next.js usando server components e NEXT AUTH para construção de um Streaming de Músicas
+### Monorepo baseado em Next.js usando as feats do Next.js 14 e NEXT AUTH para construção de um Streaming de Músicas
+Ressalvo que o objetivo desse projeto é unicamente explorar novas funcionalidades do Next.js, além de experimentar algumas libs novas e tentar me aprofundar em alguns assuntos diretamente relacionados as techs que estou ultilizando nesse projeto.
 
 ## Tecnologias e Bibliotecas de Frontend
 
@@ -10,17 +11,11 @@
 - TypeScript
 - Shadcn UI
 
-### Gerenciamento de Estado:
-- Redux Toolkit
-
-### Requisições HTTP:
-- Axios
-
 ### Ferramentas de Desenvolvimento:
 - ESLint
 - Prettier
 
-### Hospedagem e Implantação:
+### Hospedagem:
 - Vercel
 
 ### Bibliotecas de Áudio: (possíveis)
@@ -29,32 +24,16 @@
 - Sound.js
 
 ### Integração com Serviços de Música:
-- Spotify API
-- ID3.js
+- Deezer API
 
-# 
-## Tecnologias e Bibliotecas de Backend
-
-### Framework e Bibliotecas Principais:
-- Fastify
-- <a href="https://github.com/fastify/fastify-multipart">Fastify Multipart</a> 
-- TypeScript
-- Prisma
-- MongoDB
-- Node.js
-
-### Validação
-- Zod
-- Validator.js
+### Autenticação
 - NEXTAUTH.js
 
-### Documentação
-- Swagger
-
-### Hospedagem
-- Vercel
-
-### Processo do Banco de Dados:
+### Framework e Bibliotecas Principais:
+- TypeScript
+- Prisma
+- PostgreSQL
+- Node.js
 
 #### Models:
 - **Usuários**: Para armazenar informações de usuários, como nome de usuário, email, telefone, senha, preferências de estilos musicais, músicas favoritas e playlists favoritas.
@@ -64,18 +43,3 @@
 - **Músicas**: Para armazenar informações sobre as músicas, incluindo título, artista, gênero e outros metadados relevantes.
 
 - **Estilos Musicais**: Para armazenar os estilos musicais disponíveis, que podem ser usados para filtrar dados.
-
-#### Autenticação com JWT:
-- Ao criar uma conta, os usuários fornecem um nome de usuário, email, telefone e senha.
-- As informações são validadas usando Zod e Validator.js.
-- Quando um usuário faz login com sucesso, um token JWT é gerado e retornado como resposta.
-- O token JWT contém informações de autenticação do usuário.
-- Esse token é usado nas solicitações subsequentes para autenticar o usuário nas rotas protegidas.
-
-### Documentação da API:
-- A API é documentada usando Swagger ou outra ferramenta de documentação de API.
-- A documentação fornece detalhes sobre os endpoints, parâmetros, tipos de retorno e exemplos de uso.
-
-### Implantação:
-- A aplicação backend é implantada em um serviço de hospedagem como a Vercel para estar disponível na web.
-
