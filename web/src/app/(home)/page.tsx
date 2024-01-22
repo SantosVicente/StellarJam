@@ -12,37 +12,38 @@ import { LockKeyhole, Mail, Github } from "lucide-react";
 import Background from "../assets/abstract-01.png";
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+
+const valuesSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type valuesType = z.infer<typeof valuesSchema>;
 
 export default function Home() {
   const { toast } = useToast();
   const router = useRouter();
-
-  const { status, data } = useSession();
-
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<valuesType>({
+    resolver: zodResolver(valuesSchema),
   });
 
-  const handleLoginGoogleClick = async () => {
-    await signIn("google", {
-      callbackUrl: "/dashboard",
-    });
-  };
+  const handleSubmitForm = async (data: valuesType) => {
+    console.log(data);
 
-  const handleLoginGithubClick = async () => {
-    await signIn("github", {
-      callbackUrl: "/dashboard",
-    });
-  };
-
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
     const res = await signIn("credentials", {
       redirect: false,
-      email: values.email,
-      password: values.password,
+      email: data.email,
+      password: data.password,
     });
 
     if (res?.error) {
@@ -54,6 +55,20 @@ export default function Home() {
     }
 
     router.replace("/dashboard");
+  };
+
+  const { status, data } = useSession();
+
+  const handleLoginGoogleClick = async () => {
+    await signIn("google", {
+      callbackUrl: "/dashboard",
+    });
+  };
+
+  const handleLoginGithubClick = async () => {
+    await signIn("github", {
+      callbackUrl: "/dashboard",
+    });
   };
 
   if (status === "authenticated") {
@@ -95,36 +110,41 @@ export default function Home() {
               </h2>
             </div>
 
-            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-              <div className="relative w-full">
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 pointer-events-none">
-                  <Mail size={14} />
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit(handleSubmitForm)}
+            >
+              <div className="relative flex flex-col gap-4">
+                <div className="relative w-full">
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 pointer-events-none">
+                    <Mail size={14} />
+                  </div>
+                  <Input
+                    type="email"
+                    placeholder="Email"
+                    {...register("email")}
+                    className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
+                  />
                 </div>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={values.email}
-                  onChange={(e) =>
-                    setValues({ ...values, email: e.target.value })
-                  }
-                  className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
-                />
-              </div>
-              <div className="relative w-full">
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 pointer-events-none">
-                  <LockKeyhole size={14} />
+
+                <div className="relative w-full">
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 pointer-events-none">
+                    <LockKeyhole size={14} />
+                  </div>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    {...register("password")}
+                    className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
+                  />
                 </div>
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={values.password}
-                  onChange={(e) =>
-                    setValues({ ...values, password: e.target.value })
-                  }
-                  className="pl-9 w-full transition-all focus-visible:ring-[#b7f09c8c] focus:border-[#82dbf7] focus-visible:ring-offset-1 focus-visible:ring-2"
-                />
+                <div className="w-full">
+                  {(errors.email || errors.password) && (
+                    <p className="text-xs font-semibold text-red-500">
+                      Credenciais inválidas, revise-as e tente novamente.
+                    </p>
+                  )}
+                </div>
               </div>
 
               <div className="flex w-full justify-between mt-4">
@@ -158,12 +178,6 @@ export default function Home() {
                 <Button
                   className="w-full text-zinc-900 font-bold bg-[#B6F09C] hover:bg-[#9bf073] transition-all"
                   type="submit"
-                  disabled={
-                    !values.email ||
-                    !values.password ||
-                    values.email === "" ||
-                    values.password === ""
-                  }
                 >
                   Log in
                 </Button>
