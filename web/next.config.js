@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["e-cdns-images.dzcdn.net"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "e-cdns-images.dzcdn.net",
+      },
+    ],
   },
 };
 
